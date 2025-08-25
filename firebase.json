@@ -1,0 +1,1 @@
+{"flutter":{"platforms":{"android":{"default":{"projectId":"counterappauth","appId":"1:860423172127:android:163b1555cbc5cce88b252a","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"counterappauth","configurations":{"android":"1:860423172127:android:163b1555cbc5cce88b252a","ios":"1:860423172127:ios:10380fc3672139138b252a"}}}}}}

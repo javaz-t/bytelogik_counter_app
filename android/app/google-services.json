@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "860423172127",
+    "project_id": "counterappauth",
+    "storage_bucket": "counterappauth.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860423172127:android:163b1555cbc5cce88b252a",
+        "android_client_info": {
+          "package_name": "com.example.bytelogik_counter_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFLXXtZG_wcqy-0ccFKvhbdaxKL4HVd9E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
