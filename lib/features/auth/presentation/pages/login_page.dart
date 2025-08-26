@@ -28,16 +28,27 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   void _signIn() async {
     if (_formKey.currentState?.validate() ?? false) {
-      await ref.read(authControllerProvider.notifier).signIn(
-            _emailController.text.trim(),
-            _passwordController.text,
-          );
-      
+      await ref
+          .read(authControllerProvider.notifier)
+          .signIn(_emailController.text.trim(), _passwordController.text);
+
       final authState = ref.read(authControllerProvider);
       if (authState.hasError) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(authState.error.toString())),
+            SnackBar(
+              content: Text(authState.error.toString()),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } else if (authState.hasValue && authState.value != null) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Login successful ✅"),
+              backgroundColor: Colors.green,
+            ),
           );
         }
       }
@@ -47,11 +58,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authControllerProvider);
-    
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(AppConstants.loginTitle),
-      ),
+      appBar: AppBar(title: const Text(AppConstants.loginTitle)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(

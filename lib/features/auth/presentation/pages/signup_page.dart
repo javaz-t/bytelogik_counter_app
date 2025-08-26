@@ -28,24 +28,36 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
   }
 
   void _signUp() async {
-    if (_formKey.currentState?.validate() ?? false) {
-      await ref.read(authControllerProvider.notifier).signUp(
-            _emailController.text.trim(),
-            _passwordController.text,
-          );
-      
-      final authState = ref.read(authControllerProvider);
-      if (authState.hasError) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(authState.error.toString())),
-          );
-        }
-      } else if (mounted) {
+  if (_formKey.currentState?.validate() ?? false) {
+    await ref.read(authControllerProvider.notifier).signUp(
+          _emailController.text.trim(),
+          _passwordController.text,
+        );
+
+    final authState = ref.read(authControllerProvider);
+
+    if (authState.hasError) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(authState.error.toString()),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } else if (authState.hasValue && authState.value != null) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Account created successfully 🎉"),
+            backgroundColor: Colors.green,
+          ),
+        );
         Navigator.pop(context);
       }
     }
   }
+}
 
   @override
   Widget build(BuildContext context) {

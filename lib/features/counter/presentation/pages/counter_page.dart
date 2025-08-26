@@ -21,7 +21,7 @@ class CounterPage extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              ref.read(authControllerProvider.notifier).signOut();
+          _confirmLogout(context, ref);
             },
           ),
         ],
@@ -58,4 +58,52 @@ class CounterPage extends ConsumerWidget {
       ),
     );
   }
+
+  Future<void> _confirmLogout(BuildContext context, WidgetRef ref) async {
+  final shouldLogout = await showDialog<bool>(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text("Logout"),
+        content: const Text("Are you sure you want to log out?"),
+        actions: [
+          Row(
+            children: [
+  Expanded(
+    child: TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false); // Cancel
+              },
+              child: const Text("No"),
+            ),
+  ),
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(true); // Confirm
+              },
+              child: const Text("Yes"),
+            ),
+          ),
+            ],
+          )
+        
+        ],
+      );
+    },
+  );
+
+  if (shouldLogout == true) {
+    await ref.read(authControllerProvider.notifier).signOut();
+
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Logged out successfully ✅"),
+          backgroundColor: Colors.green,
+        ),
+      );
+    }
+  }
+}
 }
